@@ -11,7 +11,6 @@ def parse_instructions(instr: str) -> list:
             'source': digits[1]-1,
             'dest': digits[2]-1
         })
-    # print(instruction_list)
     return instruction_list
 
 
@@ -45,7 +44,6 @@ def stacks_to_lists(stacks):
         stack.reverse()
         stack_list.append(stack)
     
-    # print(stack_list)
     return stack_list
 
 def perform_instructions(stacks, dirs):

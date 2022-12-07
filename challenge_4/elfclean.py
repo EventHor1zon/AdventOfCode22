@@ -1,4 +1,6 @@
-
+# Doing this one super simple to teach gf some python :)
+#
+#
 
 import sys
 
