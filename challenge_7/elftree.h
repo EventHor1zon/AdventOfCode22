@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <stdint.h>
 
-#define DEBUG_MODE 1
+// #define DEBUG_MODE 1
 
 #define MAX_NODES 2056
 
@@ -14,7 +14,8 @@
 #define COMMAND_ARG_OFFSET 4
 
 #define CHALLENGE_THRESHOLD_SIZE 100000
-
+#define CHALLENGE_2_THRESHOLD    70000000
+#define CHALLENGE_2_MINIMUM      30000000
 typedef struct directory_t directory_t;
 
 typedef enum {
