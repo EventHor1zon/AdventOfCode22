@@ -21,19 +21,11 @@ static directory_t *current_dir;
 directory_t *node_list[MAX_NODES] ={0};
 int num_nodes = 0;
 
-void debug_print(char *string) {
-#ifdef DEBUG_MODE
-    printf("%s", string);
-#endif
-}
-
-int counter = 0;
 
 directory_t *create_dir() {
     directory_t * dir = malloc(sizeof(directory_t));
     if(dir != NULL) {
         memset(dir, 0, sizeof(directory_t));
-        printf("Created new directory!\n");
         node_list[num_nodes] = dir;
         num_nodes++;
     }
@@ -72,20 +64,15 @@ void parse_instruction(char *line) {
         return;
     }
 
-    printf("%d ", counter);
-    debug_print("Parsing instruction ");
-    debug_print(line);
-    debug_print("\n");
-
+#ifdef DEBUG_MODE
+    printf("Parsing instruction %s", line);
+#endif
 
     // this is a console command
     if(line[0] == '$') {
-        debug_print("Found console command - ");
-
         char cmd[4] = {0};
         sscanf(line+COMMAND_OFFSET, "%s", cmd);
-        debug_print(cmd);
-        debug_print(" -> ");
+
 
         if(strncmp(&cmd[0], "c", 1) == 0) {
             char arg[32];
@@ -93,19 +80,15 @@ void parse_instruction(char *line) {
             /** handle ".." **/
             if(strncmp(&arg[0], ".", 1) == 0 && strncmp(&arg[1], ".", 1) == 0) {
                 current_dir = current_dir->parent;
-                debug_print(".. \n");
             }
             /** reset to root **/
             else if(strncmp(&arg[0], "/", 1) == 0) {
                 current_dir = directory_tree;
-                debug_print("/\n");
             }
             else {
-                debug_print(arg);
-                debug_print("\n");
                 current_dir = child_directory_from_name(arg);
                 if(current_dir == NULL) {
-                    debug_print("Directory not found in children!\n");
+                    printf("Directory not found in children!\n");
                     exit(1);
                 }
             }
@@ -117,10 +100,6 @@ void parse_instruction(char *line) {
         sscanf(line, "%d %32s", &current_dir->files[current_dir->num_files].size,
                                 &current_dir->files[current_dir->num_files].name[0]
                             );
-        debug_print("Found file ");
-        debug_print(&current_dir->files[current_dir->num_files].name[0]);
-        debug_print("\n");
-
         current_dir->num_files++;
     }
     // this should be a dir
@@ -135,14 +114,10 @@ void parse_instruction(char *line) {
         sscanf(line, "%3s %32s", cmd, new_dir->name);
         new_dir->parent = current_dir;
         new_dir->depth = new_dir->parent->depth+1;
-        debug_print("Found dir: ");
-        debug_print(new_dir->name);
-        debug_print("\n");
+
         current_dir->children[current_dir->num_children] = new_dir;
         current_dir->num_children++;
     };
-
-    counter++;
 
     return;
 }
@@ -175,6 +150,22 @@ void update_directory_size(directory_t *dir) {
     return;
 }
 
+void print_all_dirs() {
+    printf("\n\n");
+    for(int i=0; i < num_nodes; i++) {
+        if(node_list[i] != NULL) {
+            printf("Node %s : depth %u : child dirs: %u : files: %u : total_size: %d\n",
+                node_list[i]->name,
+                node_list[i]->depth,
+                node_list[i]->num_children,
+                node_list[i]->num_files,
+                node_list[i]->total_size
+            );
+        }
+    }
+    
+}
+
 /**
  * crawl the directories and  
  * calculate their total sizes
@@ -186,14 +177,12 @@ void calculate_directory_sizes() {
     int counter = 0;
 
     while(depth >= 0) {
-        printf("Finding all nodes at depth %u\n", depth);
         for(int i=0; i < num_nodes; i++) {
             if(node_list[i]->depth == depth) {
                 update_directory_size(node_list[i]);
                 counter++;
             }
         }
-        printf("Found %u nodes at depth %u\n", counter, depth);
         depth--;
         counter = 0;
     }
@@ -259,6 +248,8 @@ int main(int argc, char *argv[]) {
     total_size = find_small_dirs();
 
     printf("Total size of nodes < 10000 is %d\n\n", total_size);
+
+    // print_all_dirs();
 
     free_nodes();
 

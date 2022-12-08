@@ -13,7 +13,7 @@
 #define COMMAND_OFFSET 2
 #define COMMAND_ARG_OFFSET 4
 
-#define CHALLENGE_THRESHOLD_SIZE 10000
+#define CHALLENGE_THRESHOLD_SIZE 100000
 
 typedef struct directory_t directory_t;
 
