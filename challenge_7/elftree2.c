@@ -201,8 +201,8 @@ uint32_t find_smallest_valid_dir() {
     uint32_t smallest = UINT32_MAX;
     uint32_t total_tree_size = directory_tree->total_size;
 
-    uint32_t free_size = CHALLENGE_2_THRESHOLD - total_tree_size;
-    uint32_t required_free_size = CHALLENGE_2_MINIMUM - free_size;
+    uint32_t free_size = (CHALLENGE_2_TOTAL_DISK_SZ - total_tree_size);
+    uint32_t required_free_size = CHALLENGE_2_MINIMUM_REQ_SZ - free_size;
 
     printf("Total disk size: 70000000, used disk space: %u | free space %u, need 30000000: must free %u\n", total_tree_size, free_size, required_free_size);
 

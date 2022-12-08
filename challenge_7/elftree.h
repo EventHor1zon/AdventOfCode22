@@ -14,8 +14,8 @@
 #define COMMAND_ARG_OFFSET 4
 
 #define CHALLENGE_THRESHOLD_SIZE 100000
-#define CHALLENGE_2_THRESHOLD    70000000
-#define CHALLENGE_2_MINIMUM      30000000
+#define CHALLENGE_2_TOTAL_DISK_SZ    70000000
+#define CHALLENGE_2_MINIMUM_REQ_SZ      30000000
 typedef struct directory_t directory_t;
 
 typedef enum {

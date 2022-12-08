@@ -150,6 +150,7 @@ void update_directory_size(directory_t *dir) {
     return;
 }
 
+
 void print_all_dirs() {
     printf("\n\n");
     for(int i=0; i < num_nodes; i++) {
@@ -207,6 +208,7 @@ uint32_t find_small_dirs() {
 
     return small_dir_size;
 }
+
 
 void free_nodes() {
     for(int i=0; i < num_nodes; i++) {
