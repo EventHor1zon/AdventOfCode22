@@ -124,9 +124,6 @@ void build_visibility_matrix() {
         fprintf(ptr, "\n");
     }
     fclose(ptr);
-#endif
-
-#ifdef DEBUG_MODE
 
     printf("Dumping to file\n");
     FILE *ptra = fopen("./treemap.txt", "w+");
