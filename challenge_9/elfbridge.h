@@ -10,6 +10,8 @@
 
 #define DEBUG_MODE      1
 
+#define ELF2_NUM_KNOTS  10
+
 typedef struct position {
     int16_t x;
     int16_t y;
