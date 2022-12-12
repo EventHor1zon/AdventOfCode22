@@ -92,7 +92,7 @@ void build_visibility_matrix() {
     */    
     for(int r=0; r < num_rows; r++) {
         max = -1;
-        for(int c=1; c != num_columns; c++) {
+        for(int c=1; c < num_columns; c++) {
             if(tree_array[r][num_columns-c] > max) {
                 max = tree_array[r][num_columns - c];
                 visibility[r][num_columns - c] |= TREE_VISIBLE_RIGHT;
@@ -103,7 +103,7 @@ void build_visibility_matrix() {
     /* from bottom of matrix, bottom to top */
     for(int c=0; c < num_columns; c++) {
         max = -1;
-        for(int r=1; r != num_rows; r++) {
+        for(int r=1; r < num_rows; r++) {
             if(tree_array[num_rows - r][c] > max) {
                 max = tree_array[num_rows - r][c];
                 visibility[num_rows - r][c] |= TREE_VISIBLE_BOT;

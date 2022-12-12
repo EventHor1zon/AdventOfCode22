@@ -1,7 +1,7 @@
 
 #include <stdint.h>
 
-// #define DEBUG_MODE 1
+#define DEBUG_MODE 1
 
 #define MAX_ARRAY_ROWS      512
 #define MAX_ARRAY_COLUMNS   512
